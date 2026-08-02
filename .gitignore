@@ -1,0 +1,17 @@
+# Sensitive Credentials (NEVER COMMIT API KEYS OR PASSWORDS)
+.env
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# Local SQLite DB / Outputs if temporary
+*.log

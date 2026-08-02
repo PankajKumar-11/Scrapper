@@ -1,0 +1,88 @@
+{
+  "personal_info": {
+    "name": "Pankaj Kumar",
+    "email": "pankaj.k6367@gmail.com",
+    "phone": "+91 97825 33331",
+    "location": "Kolkata, India",
+    "github": "https://github.com/PankajKumar-11",
+    "linkedin": "https://linkedin.com",
+    "leetcode": "https://leetcode.com"
+  },
+  "profile_summary": "Information Technology undergraduate at IIEST Shibpur with hands-on experience in full-stack web engineering (Next.js, React.js, Node.js, Express.js, TypeScript), real-time backend microservices (Socket.IO, Redis, PostgreSQL, MongoDB, Prisma), and applied machine learning (Scikit-learn, XGBoost, Pandas). Solved 320+ DSA problems with a 1605 LeetCode rating and competitive programming achievements.",
+  "education": [
+    {
+      "institution": "IIEST, Shibpur",
+      "degree": "B.Tech in Information Technology",
+      "duration": "Aug 2023 -- May 2027",
+      "details": "CGPA: 7.77 / 10 | Coursework: Data Structures & Algorithms, OOP, DBMS, Operating Systems, Computer Networks"
+    }
+  ],
+  "achievements": [
+    "Ranked 218 among 22,000+ participants in CodeChef Starters 245",
+    "Maximum LeetCode Rating: 1605 (Top 23%) -- Solved 320+ DSA problems"
+  ],
+  "experience": [
+    {
+      "company": "Tamizhan Skills (RISE Program)",
+      "role": "Machine Learning Intern",
+      "duration": "Jun 2026 -- Jul 2026",
+      "location": "Remote",
+      "bullets": [
+        "Developed and evaluated classification and clustering models using Scikit-learn, applying end-to-end ML workflows on real-world datasets.",
+        "Performed data preprocessing, feature engineering, and model validation, improving predictive performance through systematic experimentation and evaluation."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "DrawChain -- Real-Time Multiplayer Drawing & Guessing Game",
+      "stack": "Next.js, TypeScript, Socket.IO, Redis, PostgreSQL, Prisma",
+      "bullets": [
+        "Architected a real-time multiplayer game engine using Socket.IO and Redis, enabling synchronized canvas updates with sub-100ms latency across concurrent players.",
+        "Reduced client asset payload size by 90% (6.5MB to 675KB), significantly improving page load and rendering performance.",
+        "Implemented secure session-based authentication and automated leaderboard persistence using NextAuth, Prisma, and PostgreSQL.",
+        "Designed event-driven gameplay workflows for drawing synchronization, round management, scoring, and real-time player interactions."
+      ],
+      "links": {
+        "repo": "https://github.com/PankajKumar-11/DrawChain",
+        "demo": "https://demo.example.com"
+      }
+    },
+    {
+      "name": "IPL Win Predictor -- Real-Time Match Outcome Prediction",
+      "stack": "Python, Pandas, Scikit-learn, XGBoost, SHAP, Streamlit",
+      "bullets": [
+        "Engineered an automated data pipeline to process and normalize data from 1,200+ IPL match files, generating a structured dataset for predictive modeling.",
+        "Designed cricket-specific features including Required Run Rate, Wickets Remaining, and a custom Pressure Index; trained XGBoost models achieving 75% accuracy on unseen seasons.",
+        "Deployed an explainable prediction platform using Streamlit and SHAP, providing real-time win probabilities and model interpretation."
+      ],
+      "links": {
+        "repo": "https://github.com/PankajKumar-11/IPL-Win-Predictor",
+        "demo": "https://demo.example.com"
+      }
+    },
+    {
+      "name": "YourBooking -- Hotel Booking Web App",
+      "stack": "MongoDB, Express.js, React.js, Node.js",
+      "bullets": [
+        "Built a full-stack hotel booking platform with secure authentication, role-based access control, and reservation management workflows.",
+        "Designed RESTful backend services and MongoDB data models supporting booking, user, and administrative operations."
+      ],
+      "links": {
+        "repo": "https://github.com/PankajKumar-11/YourBooking",
+        "demo": "https://demo.example.com"
+      }
+    }
+  ],
+  "skills": {
+    "languages": ["C++", "Python", "JavaScript", "TypeScript", "SQL"],
+    "core_cs": ["Data Structures & Algorithms", "OOP", "DBMS", "Operating Systems", "Computer Networks"],
+    "frameworks": ["React.js", "Next.js", "Express.js", "Scikit-learn", "XGBoost"],
+    "backend_databases": ["Node.js", "REST APIs", "Socket.IO", "PostgreSQL", "MongoDB", "Redis", "Prisma ORM"],
+    "machine_learning": ["Pandas", "NumPy", "Feature Engineering", "Model Evaluation", "SHAP"],
+    "tools": ["Git", "GitHub", "Postman", "Streamlit"]
+  },
+  "certifications": [
+    "Artificial Intelligence Fundamentals -- IBM (Credly Verified Badge): Covered Machine Learning, Neural Networks, and AI tools using Python and IBM Watson."
+  ]
+}

@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=none
+name: Daily AI Job Discovery & Resume Tailoring
+
+on:
+  schedule:
+    # Run daily at 02:30 UTC (8:00 AM IST)
+    - cron: '30 2 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  run-digest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml sentence-transformers jinja2
+
+      - name: Run Daily Job Pipeline
+        env:
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SMTP_SENDER_EMAIL: ${{ secrets.SMTP_SENDER_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python main.py --run
+
+      - name: Commit Updated Deduplication DB & Dashboard
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/seen_jobs.db output/
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update daily job digest & dedup store [skip ci]"
+          git push

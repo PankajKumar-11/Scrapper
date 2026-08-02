@@ -1,0 +1,58 @@
+# Job Discovery & Resume Tailoring System Configuration
+
+search:
+  country: "in"
+  keywords:
+    - "Software Engineer"
+    - "SDE"
+    - "Backend Engineer"
+    - "Full Stack Developer"
+    - "Python Developer"
+    - "AI Engineer"
+  location: "India"
+  max_freshness_days: 7
+  results_per_keyword: 20
+
+ranking:
+  min_relevance_score: 0.50
+  embedding_model: "all-MiniLM-L6-v2"
+  max_jobs_to_tailor: 10
+  top_company_boost: 0.10
+  top_companies:
+    - "Amazon"
+    - "Google"
+    - "Microsoft"
+    - "Goldman Sachs"
+    - "Flipkart"
+    - "Swiggy"
+    - "Zomato"
+    - "Razorpay"
+    - "Bosch"
+    - "Hevo Data"
+    - "Adobe"
+    - "Atlassian"
+    - "Uber"
+    - "Oracle"
+    - "Cisco"
+    - "Salesforce"
+    - "Intuit"
+    - "PhonePe"
+
+llm:
+  model_name: "gemini-2.0-flash"
+  temperature: 0.2
+  fallback_to_keyword_reorder: true
+
+delivery:
+  enable_email: true
+  email_recipient: "pankaj.k6367@gmail.com"
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  enable_telegram: true
+  dashboard_dir: "output"
+
+paths:
+  resume_json: "data/resume_source.json"
+  seen_jobs_db: "data/seen_jobs.db"
+  latex_template: "templates/resume_template.tex"
+  compiler: "pdflatex"

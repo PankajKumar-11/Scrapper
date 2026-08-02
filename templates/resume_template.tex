@@ -1,0 +1,110 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage[utf8]{utf8}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\titlerule]
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\setlist[itemize]{noitemsep, topsep=1pt, parsep=1pt, partopsep=0pt, leftmargin=15pt}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% --- HEADER ---
+\begin{center}
+    {\Huge \textbf{(( personal_info.name ))}} \\ \vspace{4pt}
+    (( personal_info.email )) \ $|$ \ (( personal_info.phone )) \ $|$ \ (( personal_info.location )) \\
+    \href{(( personal_info.linkedin ))}{LinkedIn} \ $|$ \ \href{(( personal_info.github ))}{GitHub} \ $|$ \ \href{(( personal_info.leetcode ))}{LeetCode}
+\end{center}
+
+% --- SUMMARY ---
+((* if profile_summary *))
+\section{Profile Summary}
+(( profile_summary ))
+((* endif *))
+
+% --- EDUCATION ---
+\section{Education}
+((* for edu in education *))
+\textbf{(( edu.institution ))} \hfill (( edu.duration )) \\
+\textit{(( edu.degree ))} \\
+\small{(( edu.details ))} \\
+((* endfor *))
+
+% --- ACHIEVEMENTS ---
+((* if achievements *))
+\section{Achievements}
+\begin{itemize}
+((* for ach in achievements *))
+    \item (( ach ))
+((* endfor *))
+\end{itemize}
+((* endif *))
+
+% --- EXPERIENCE ---
+((* if experience *))
+\section{Experience}
+((* for exp in experience *))
+\textbf{(( exp.role ))} -- \textit{(( exp.company ))} \hfill (( exp.duration )) \\
+((* if exp.location *))\textit{\small{(( exp.location ))}} \\((* endif *))
+\begin{itemize}
+((* for bullet in exp.bullets *))
+    \item (( bullet ))
+((* endfor *))
+\end{itemize}
+\vspace{2pt}
+((* endfor *))
+((* endif *))
+
+% --- PROJECTS ---
+\section{Projects}
+((* for proj in projects *))
+\textbf{(( proj.name ))} $|$ \textit{(( proj.stack ))} \\
+((* if proj.links *))
+\small{
+((* if proj.links.repo *))\href{(( proj.links.repo ))}{GitHub Repository}((* endif *))
+((* if proj.links.demo *)) \ $|$ \ \href{(( proj.links.demo ))}{Live Demo}((* endif *))
+} \\
+((* endif *))
+\begin{itemize}
+((* for bullet in proj.bullets *))
+    \item (( bullet ))
+((* endfor *))
+\end{itemize}
+\vspace{2pt}
+((* endfor *))
+
+% --- TECHNICAL SKILLS ---
+\section{Technical Skills}
+\begin{itemize}
+    ((* if skills.languages *))\item \textbf{Languages:} (( skills.languages | join(', ') ))((* endif *))
+    ((* if skills.core_cs *))\item \textbf{Core CS:} (( skills.core_cs | join(', ') ))((* endif *))
+    ((* if skills.frameworks *))\item \textbf{Frameworks \& Libraries:} (( skills.frameworks | join(', ') ))((* endif *))
+    ((* if skills.backend_databases *))\item \textbf{Backend \& Databases:} (( skills.backend_databases | join(', ') ))((* endif *))
+    ((* if skills.machine_learning *))\item \textbf{Machine Learning:} (( skills.machine_learning | join(', ') ))((* endif *))
+    ((* if skills.tools *))\item \textbf{Tools:} (( skills.tools | join(', ') ))((* endif *))
+\end{itemize}
+
+% --- CERTIFICATIONS ---
+((* if certifications *))
+\section{Certifications}
+\begin{itemize}
+((* for cert in certifications *))
+    \item (( cert ))
+((* endfor *))
+\end{itemize}
+((* endif *))
+
+\end{document}
