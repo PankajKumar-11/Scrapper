@@ -31,7 +31,7 @@ class RelevanceRanker:
                 self.model = None
 
     def _apply_company_boost(self, job: JobPosting, raw_score: float) -> float:
-        comp_name = job.company.lower()
+        comp_name = (job.company or "").lower()
         for top_comp in self.top_companies:
             if top_comp in comp_name:
                 boosted = min(1.0, raw_score + self.top_company_boost)

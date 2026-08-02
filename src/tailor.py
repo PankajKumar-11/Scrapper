@@ -89,50 +89,53 @@ INPUT RESUME JSON (SOURCE OF TRUTH):
 {json.dumps(source_resume, indent=2)}
 """
 
-        try:
-            time.sleep(1.0)  # Gentle delay to respect Gemini API rate limits
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model_name}:generateContent?key={self.api_key}"
-            payload = {
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "temperature": 0.2,
-                    "response_mime_type": "application/json"
+        for attempt in range(2):
+            try:
+                time.sleep(1.0 + (attempt * 2.0))  # Backoff delay if retrying
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model_name}:generateContent?key={self.api_key}"
+                payload = {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "temperature": 0.2,
+                        "response_mime_type": "application/json"
+                    }
                 }
-            }
 
-            req = urllib.request.Request(
-                url,
-                data=json.dumps(payload).encode("utf-8"),
-                headers={
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": self.api_key
-                }
-            )
+                req = urllib.request.Request(
+                    url,
+                    data=json.dumps(payload).encode("utf-8"),
+                    headers={
+                        "Content-Type": "application/json",
+                        "x-goog-api-key": self.api_key
+                    }
+                )
 
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                if resp.status == 200:
-                    resp_data = json.loads(resp.read().decode("utf-8"))
-                    text_response = resp_data["candidates"][0]["content"]["parts"][0]["text"]
-                    
-                    # Clean up JSON formatting if needed
-                    clean_json_str = text_response.strip()
-                    if clean_json_str.startswith("```"):
-                        clean_json_str = clean_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    if resp.status == 200:
+                        resp_data = json.loads(resp.read().decode("utf-8"))
+                        text_response = resp_data["candidates"][0]["content"]["parts"][0]["text"]
+                        
+                        clean_json_str = text_response.strip()
+                        if clean_json_str.startswith("```"):
+                            clean_json_str = clean_json_str.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
 
-                    tailored_dict = json.loads(clean_json_str)
+                        tailored_dict = json.loads(clean_json_str)
 
-                    # Pass through Fabrication Guard
-                    is_valid, reason = self.guard.validate(source_resume, tailored_dict)
-                    if is_valid:
-                        logger.info(f"LLM tailoring successful & passed fabrication guard for job '{job.title}'.")
-                        return tailored_dict, "LLM (Gemini Flash)"
-                    else:
-                        logger.warning(f"LLM output failed fabrication guard: {reason}. Falling back to Keyword Reorder.")
-                        return self.fallback_tailor.tailor(source_resume, job), "Fallback (Keyword Reorder - Guard Triggered)"
+                        # Pass through Fabrication Guard
+                        is_valid, reason = self.guard.validate(source_resume, tailored_dict)
+                        if is_valid:
+                            logger.info(f"LLM tailoring successful & passed fabrication guard for job '{job.title}'.")
+                            return tailored_dict, "LLM (Gemini Flash)"
+                        else:
+                            logger.warning(f"LLM output failed fabrication guard: {reason}. Falling back to Keyword Reorder.")
+                            return self.fallback_tailor.tailor(source_resume, job), "Fallback (Keyword Reorder - Guard Triggered)"
 
-        except urllib.error.HTTPError as e:
-            logger.warning(f"Gemini API HTTP Error {e.code}: {e.reason}. Falling back to Keyword Reorder.")
-        except Exception as e:
-            logger.warning(f"LLM tailoring failed for job '{job.title}': {e}. Falling back to Keyword Reorder.")
+            except urllib.error.HTTPError as e:
+                if e.code == 429 and attempt == 0:
+                    logger.warning(f"Gemini API rate limited (429). Retrying in 2 seconds...")
+                    continue
+                logger.warning(f"Gemini API HTTP Error {e.code}: {e.reason}. Falling back to Keyword Reorder.")
+            except Exception as e:
+                logger.warning(f"LLM tailoring failed for job '{job.title}': {e}. Falling back to Keyword Reorder.")
 
         return self.fallback_tailor.tailor(source_resume, job), "Fallback (Keyword Reorder)"
