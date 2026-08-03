@@ -3,10 +3,10 @@ name: Daily AI Job Discovery & Resume Tailoring
 
 on:
   schedule:
-    # Primary run at 02:15 UTC (7:45 AM IST)
+    # Live test run at 01:52 UTC (3:22 AM IST - 6 mins from now)
+    - cron: '52 1 * * *'
+    # Daily 7:45 AM IST schedule
     - cron: '15 2 * * *'
-    # Secondary backup run at 03:00 UTC (8:30 AM IST)
-    - cron: '0 3 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 permissions:
