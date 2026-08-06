@@ -1,157 +1,115 @@
-%-------------------------
-% Pankaj Kumar — Resume (Software Development track)
-%-------------------------
-\documentclass[letterpaper,10.9pt]{article}
+\documentclass[10pt, a4paper]{article}
 
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
-
-\usepackage[top=0.38in, bottom=0.38in, left=0.45in, right=0.45in]{geometry}
-
-\usepackage{xcolor}
-\usepackage{titlesec}
-\usepackage{enumitem}
+\usepackage[margin=0.45in]{geometry}
 \usepackage{hyperref}
-\usepackage{array}
-\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\vspace{-2pt}\titlerule]
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+\setlist[itemize]{noitemsep, topsep=1pt, parsep=1pt, partopsep=0pt, leftmargin=12pt}
+
 \pagestyle{empty}
 
-\definecolor{darkblue}{HTML}{1a1a2e}
-\definecolor{accent}{HTML}{2E75B6}
-\definecolor{darkgray}{HTML}{555555}
-\definecolor{lightgray}{HTML}{888888}
-
-\hypersetup{colorlinks=true, urlcolor=accent, hidelinks}
-
-% Section: bold label + blue rule beneath
-\titleformat{\section}{\bfseries\normalsize\color{darkblue}}{}{0em}{}[{\color{accent}\vspace{1pt}\hrule height 0.6pt\vspace{2pt}}]
-\titlespacing*{\section}{0pt}{8pt}{4pt}
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt}
-
-\setlist[itemize]{
-leftmargin=1.2em,
-itemsep=2pt,
-topsep=2pt,
-parsep=0pt,
-partopsep=0pt,
-label=\textbullet
-}
-
-\newcommand{\resumeItem}[1]{\item\small #1}
-
-% Fixed: title (flexible column) + links (right-aligned column) on one row
-\newcommand{\projectHeading}[4]{%
-\noindent\begin{tabularx}{\linewidth}{@{}X r@{}}
-\textbf{\color{darkblue}#1} & {\small\href{#2}{\color{accent}\underline{Live Demo}}\;\color{lightgray}{|}\;\href{#3}{\color{accent}\underline{GitHub}}} \\
-\end{tabularx}\\[-2pt]
-{\footnotesize\color{lightgray}\textit{#4}}%
-}
-
-\newcommand{\jobHeading}[3]{%
-  \textbf{\color{darkblue}#1} {\color{darkgray}--- #2}%
-  \hfill{\footnotesize\color{lightgray}\textit{#3}}%
-}
-
-\newcommand{\skillrow}[2]{\small\textbf{\color{darkblue}#1:} #2}
-
-%=============================================================
 \begin{document}
-%=============================================================
 
-%-----Header-------------------------------------------
+% --- HEADER ---
 \begin{center}
-{\fontsize{24}{27}\selectfont\bfseries\color{darkblue} (( personal_info.name ))}\\[4pt]
-
-{\small\color{darkgray}
-(( personal_info.email )) \;|\;
-(( personal_info.phone )) \;|\;
-(( personal_info.location )) \;|\;
-\href{(( personal_info.linkedin ))}{LinkedIn}
-\;|\;
-\href{(( personal_info.github ))}{GitHub}
-\;|\;
-\href{(( personal_info.leetcode ))}{LeetCode}
-}
+    {\Huge \textbf{(( personal_info.name ))}} \\ \vspace{3pt}
+    (( personal_info.email )) \ $|$ \ (( personal_info.phone )) \ $|$ \ (( personal_info.location )) \\ \vspace{2pt}
+    \href{(( personal_info.linkedin ))}{LinkedIn} \ $|$ \ \href{(( personal_info.github ))}{GitHub} \ $|$ \ \href{(( personal_info.leetcode ))}{LeetCode}
 \end{center}
 
-\vspace{2pt}
-
-% ── Profile Summary ─────────────────────────────────────────────
+% --- SUMMARY ---
 ((* if profile_summary *))
 \section{Profile Summary}
-{\small\color{darkgray} (( profile_summary ))}
+{\small (( profile_summary ))}
 ((* endif *))
 
-% ── Education ────────────────────────────────────────────────
+% --- EDUCATION ---
 \section{Education}
 ((* for edu in education *))
-\textbf{\color{darkblue}(( edu.institution ))} --- \textit{(( edu.degree ))} %
-\hfill{\footnotesize\color{lightgray}\textit{(( edu.duration ))}}\\[1pt]
-{\small\color{darkgray}(( edu.details ))}
+\noindent \textbf{(( edu.institution ))} \hfill (( edu.duration )) \\
+\textit{(( edu.degree ))} \\
+\small{(( edu.details ))}
 ((* endfor *))
 
-% ── Achievements ─────────────────────────────────────────────
+% --- ACHIEVEMENTS ---
 ((* if achievements *))
 \section{Achievements}
 \begin{itemize}
 ((* for ach in achievements *))
-\resumeItem{(( ach ))}
+    \item (( ach ))
 ((* endfor *))
 \end{itemize}
 ((* endif *))
 
-% ── Experience ───────────────────────────────────────────────
+% --- EXPERIENCE ---
 ((* if experience *))
 \section{Experience}
 ((* for exp in experience *))
-\jobHeading{(( exp.role ))}{(( exp.company ))}{(( exp.duration ))((* if exp.location *)) · (( exp.location ))((* endif *))}
+\noindent \textbf{(( exp.role ))} -- \textit{(( exp.company ))} \hfill (( exp.duration )) \\
+((* if exp.location *))\textit{\small{(( exp.location ))}} \\((* endif *))
 \begin{itemize}
 ((* for bullet in exp.bullets *))
-\resumeItem{(( bullet ))}
+    \item (( bullet ))
 ((* endfor *))
 \end{itemize}
+\vspace{2pt}
 ((* endfor *))
 ((* endif *))
 
-% ── Projects ─────────────────────────────────────────────────
+% --- PROJECTS ---
 \section{Projects}
 ((* for proj in projects *))
-\projectHeading%
-  {(( proj.name ))}%
-  {(( proj.links.demo if proj.links and proj.links.demo else '#' ))}{(( proj.links.repo if proj.links and proj.links.repo else '#' ))}%
-  {(( proj.stack ))}
+\noindent \textbf{(( proj.name ))} \hfill 
+((* if proj.links *))
+\small{
+((* if proj.links.demo *))\href{(( proj.links.demo ))}{Live Demo}((* endif *))
+((* if proj.links.repo *)) \ $|$ \ \href{(( proj.links.repo ))}{GitHub}((* endif *))
+}
+((* endif *)) \\
+\textit{\small{(( proj.stack ))}}
 \begin{itemize}
 ((* for bullet in proj.bullets *))
-\resumeItem{(( bullet ))}
+    \item (( bullet ))
 ((* endfor *))
 \end{itemize}
-\vspace{4pt}
+\vspace{3pt}
 ((* endfor *))
 
-% ── Technical Skills ─────────────────────────────────────────
+% --- TECHNICAL SKILLS ---
 \section{Technical Skills}
-((* if skills.languages *))\skillrow{Languages}{(( skills.languages | join(', ') ))}\\[3pt]((* endif *))
-((* if skills.core_cs *))\skillrow{Core CS}{(( skills.core_cs | join(', ') ))}\\[3pt]((* endif *))
-((* if skills.frameworks *))\skillrow{Frameworks \& Libraries}{(( skills.frameworks | join(', ') ))}\\[3pt]((* endif *))
-((* if skills.backend_databases *))\skillrow{Backend \& Databases}{(( skills.backend_databases | join(', ') ))}\\[3pt]((* endif *))
-((* if skills.machine_learning *))\skillrow{Machine Learning}{(( skills.machine_learning | join(', ') ))}\\[3pt]((* endif *))
-((* if skills.tools *))\skillrow{Tools}{(( skills.tools | join(', ') ))}\\[3pt]((* endif *))
+\begin{itemize}
+    ((* if skills.languages *))\item \textbf{Languages:} (( skills.languages | join(', ') ))((* endif *))
+    ((* if skills.core_cs *))\item \textbf{Core CS:} (( skills.core_cs | join(', ') ))((* endif *))
+    ((* if skills.frameworks *))\item \textbf{Frameworks \& Libraries:} (( skills.frameworks | join(', ') ))((* endif *))
+    ((* if skills.backend_databases *))\item \textbf{Backend \& Databases:} (( skills.backend_databases | join(', ') ))((* endif *))
+    ((* if skills.machine_learning *))\item \textbf{Machine Learning:} (( skills.machine_learning | join(', ') ))((* endif *))
+    ((* if skills.tools *))\item \textbf{Tools:} (( skills.tools | join(', ') ))((* endif *))
+\end{itemize}
 
-% ── Certifications ───────────────────────────────────────────
+% --- CERTIFICATIONS ---
 ((* if certifications *))
 \section{Certifications}
+\begin{itemize}
 ((* for cert in certifications *))
 ((* if cert is mapping *))
-\textbf{\color{darkblue}(( cert.title )) --- } {\small\href{(( cert.badge_url ))}{\color{accent}\small{Credly Verified Badge}}}\\[2pt]
-{\small (( cert.details ))}
+    \item \textbf{(( cert.title ))} -- \href{(( cert.badge_url ))}{Credly Verified Badge}: (( cert.details ))
 ((* else *))
-\resumeItem{(( cert ))}
+    \item (( cert ))
 ((* endif *))
 ((* endfor *))
+\end{itemize}
 ((* endif *))
 
 \end{document}
