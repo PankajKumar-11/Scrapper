@@ -38,9 +38,9 @@
 % --- EDUCATION ---
 \section{Education}
 ((* for edu in education *))
-\textbf{(( edu.institution ))} \hfill (( edu.duration )) \\
+\noindent \textbf{(( edu.institution ))} \hfill (( edu.duration )) \\
 \textit{(( edu.degree ))} \\
-\small{(( edu.details ))} \\
+\small{(( edu.details ))}
 ((* endfor *))
 
 % --- ACHIEVEMENTS ---
@@ -57,31 +57,33 @@
 ((* if experience *))
 \section{Experience}
 ((* for exp in experience *))
-\textbf{(( exp.role ))} -- \textit{(( exp.company ))} \hfill (( exp.duration )) \\
+\noindent \textbf{(( exp.role ))} -- \textit{(( exp.company ))} \hfill (( exp.duration )) \\
 ((* if exp.location *))\textit{\small{(( exp.location ))}} \\((* endif *))
 \begin{itemize}
 ((* for bullet in exp.bullets *))
     \item (( bullet ))
 ((* endfor *))
 \end{itemize}
+\vspace{2pt}
 ((* endfor *))
 ((* endif *))
 
 % --- PROJECTS ---
 \section{Projects}
 ((* for proj in projects *))
-\textbf{(( proj.name ))} $|$ \textit{(( proj.stack ))} \\
+\noindent \textbf{(( proj.name ))} $|$ \textit{\small{(( proj.stack ))}} \hfill 
 ((* if proj.links *))
 \small{
-((* if proj.links.repo *))\href{(( proj.links.repo ))}{GitHub Repository}((* endif *))
-((* if proj.links.demo *)) \ $|$ \ \href{(( proj.links.demo ))}{Live Demo}((* endif *))
-} \\
+((* if proj.links.repo *))\href{(( proj.links.repo ))}{[GitHub]}((* endif *))
+((* if proj.links.demo and proj.links.demo != 'https://demo.example.com' *)) \ $|$ \ \href{(( proj.links.demo ))}{[Demo]}((* endif *))
+}
 ((* endif *))
 \begin{itemize}
 ((* for bullet in proj.bullets *))
     \item (( bullet ))
 ((* endfor *))
 \end{itemize}
+\vspace{3pt}
 ((* endfor *))
 
 % --- TECHNICAL SKILLS ---
