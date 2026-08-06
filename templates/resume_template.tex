@@ -1,7 +1,7 @@
 \documentclass[10pt, a4paper]{article}
 
-\usepackage[utf8]{utf8}
-\usepackage[margin=0.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.45in]{geometry}
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{titlesec}
@@ -14,9 +14,9 @@
     urlcolor=blue,
 }
 
-\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\titlerule]
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-\setlist[itemize]{noitemsep, topsep=1pt, parsep=1pt, partopsep=0pt, leftmargin=15pt}
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\vspace{-2pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{2pt}
+\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt, leftmargin=12pt}
 
 \pagestyle{empty}
 
@@ -24,15 +24,15 @@
 
 % --- HEADER ---
 \begin{center}
-    {\Huge \textbf{(( personal_info.name ))}} \\ \vspace{4pt}
-    (( personal_info.email )) \ $|$ \ (( personal_info.phone )) \ $|$ \ (( personal_info.location )) \\
+    {\Huge \textbf{(( personal_info.name ))}} \\ \vspace{2pt}
+    (( personal_info.email )) \ $|$ \ (( personal_info.phone )) \ $|$ \ (( personal_info.location )) \\ \vspace{1pt}
     \href{(( personal_info.linkedin ))}{LinkedIn} \ $|$ \ \href{(( personal_info.github ))}{GitHub} \ $|$ \ \href{(( personal_info.leetcode ))}{LeetCode}
 \end{center}
 
 % --- SUMMARY ---
 ((* if profile_summary *))
 \section{Profile Summary}
-(( profile_summary ))
+{\small (( profile_summary ))}
 ((* endif *))
 
 % --- EDUCATION ---
@@ -64,7 +64,6 @@
     \item (( bullet ))
 ((* endfor *))
 \end{itemize}
-\vspace{2pt}
 ((* endfor *))
 ((* endif *))
 
@@ -83,7 +82,6 @@
     \item (( bullet ))
 ((* endfor *))
 \end{itemize}
-\vspace{2pt}
 ((* endfor *))
 
 % --- TECHNICAL SKILLS ---
